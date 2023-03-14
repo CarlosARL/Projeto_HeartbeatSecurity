@@ -1,19 +1,18 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import App from "../objetos/paciente"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function AddPaciente(){
     const navigation = useNavigation();
-    function sairDoApp(){
-        navigation.navigate('Login');
+    function voltar(){
+        navigation.navigate('Home');
     }
     return(
         <View style={styles.container}>
-            <Text>
-                Olá mundo
-            </Text>
-            <TouchableOpacity onPress={sairDoApp}>
+            <App />
+            <TouchableOpacity onPress={voltar}>
                 <MaterialCommunityIcons name="logout" size={50} color={'#000'}/>
             </TouchableOpacity>
         </View>

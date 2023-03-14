@@ -8,6 +8,7 @@ import HomeScreen from './assets/HomeScreen';
 import Cadastro from './assets/Cadastro';
 import Login from './assets/Login';
 import AddPaciente from './assets/AddPaciente';
+import Home from './assets/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +16,7 @@ export default function App(){
   return(
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{
+        <Stack.Screen name="Home" component={Home} options={{
           headerShown:false,}}/>
         <Stack.Screen name="Login" component={Login} options={{
           headerShown:false,}}/>

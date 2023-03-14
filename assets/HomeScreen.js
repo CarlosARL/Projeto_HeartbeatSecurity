@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Flatlist} from 'react-native';
 import Pessoa from './../objetos/pessoa';
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import axios from 'axios';
 
-export default function App(){
-
+export default function Home({ route }) {
+  const { usuario } = route.params;
+  const [nome, setNome] = useState('');
   const navigation = useNavigation();
+
+  /*useEffect(() => {
+    axios
+      .get(`http://10.0.0.151:3001/name/${usuario}`)
+      .then(({ data }) => {
+        setNome(data.nome);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [usuario]);
+*/
+{
+  axios
+    .get(`http://10.0.0.151:3001/name/${usuario}`)
+    .then(({ data }) => {
+      setNome(data.nome);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+  console.log(nome);
 
   function IrparaAddPaciente(){
     navigation.navigate('AddPaciente');
   }
     
-  
-
   return(
-    
     <View style={styles.container}>
 
       <View style={styles.clientes}>
-        <Pessoa/>
-        <Pessoa/>
-        <Pessoa/>
+      <Pessoa nome={nome} />
       </View>
 
       <View style={styles.addcliente}>
@@ -33,7 +53,6 @@ export default function App(){
     </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   container:{

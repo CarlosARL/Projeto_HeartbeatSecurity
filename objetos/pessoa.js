@@ -1,17 +1,41 @@
-import React from 'react';
+/*import React, { useState } from 'react';
 import {View, Text, ImageBackground, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default function Pessoa(){
+export default function Pessoa({ nome }) {
+  const [BPM, setBPM] = useState('');
+  const [OX, setOX] = useState('');
+  const io = require('socket.io-client');
+  const socket = io.connect('http://10.0.0.151:4000');
+  var flag1=0;
+  if (flag1!=1){
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor.');
+      flag1=1;
+    });
+  }
+
+
+  socket.on('BPM', (data) => {
+    setBPM(data);
+  });
+  socket.on('OX', (data) => {
+    setOX(data);
+  });
+  
+
+  socket.on('disconnect', () => {
+    console.log('Desconectado do servidor.');
+  });
     return(
         
         <TouchableOpacity style={styles.pessoa}>
           <View style={styles.conteudo}>
-            <Text style={styles.texto}>Lucas Chavante</Text>
-            <Text style={styles.texto}>BPM:71</Text>
+            <Text style={styles.texto}>{nome}</Text>
+            <Text style={styles.texto}>{BPM}</Text>
           </View>
           <View style={styles.conteudo}>
-            <Text style={styles.texto}>Idade: 21</Text>
-            <Text style={styles.texto}>SaO2: 98%</Text>
+            <Text style={styles.texto}>Idade: 18</Text>
+            <Text style={styles.texto}>{OX}</Text>
           </View>
         </TouchableOpacity>
 
@@ -47,3 +71,95 @@ const styles = StyleSheet.create({
         marginRight:30
       },
 })
+*/
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+import axios from 'axios';
+import PacienteItem from './PacienteItem';
+
+const Pessoa = () => {
+  const [pacientes, setPacientes] = useState([]);
+  const [nome, setNome] = useState('');
+  const [diagnostico, setDiagnostico] = useState('');
+
+  useEffect(() => {
+    async function fetchPacientes() {
+      const response = await axios.get('http://10.0.0.151:3000/pacientes');
+      setPacientes(response.data);
+    }
+    fetchPacientes();
+  }, []);
+
+  const handleCriarPaciente = async () => {
+    const novoPaciente = {
+      nome,
+      diagnostico,
+    };
+    const response = await axios.post('http://10.0.0.151:3000/pacientes', novoPaciente);
+    setPacientes([...pacientes, response.data]);
+    setNome('');
+    setDiagnostico('');
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Pacientes</Text>
+      <FlatList
+  data={pacientes}
+  keyExtractor={(paciente) => paciente._id}
+  renderItem={({ item }) => <PacienteItem paciente={item} />}
+/>
+      <Text style={styles.subtitulo}>Criar paciente</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nome"
+        value={nome}
+        onChangeText={(text) => setNome(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Diagnóstico"
+        value={diagnostico}
+        onChangeText={(text) => setDiagnostico(text)}
+      />
+      <Button title="Criar" onPress={handleCriarPaciente} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  subtitulo: {
+    fontSize: 18,
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+  pacienteContainer: {
+    marginBottom: 16,
+  },
+  nome: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  diagnostico: {
+    fontSize: 14,
+  },
+});
+
+export default Pessoa;

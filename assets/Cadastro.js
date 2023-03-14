@@ -18,12 +18,12 @@ export default function Cadastro(){
         navigation.navigate('Login');
       }
     function requestCadastro()
-    {
+    {           
       var axios = require("axios").default;
 
       var options = {
         method: 'POST',
-        url: 'http://18.206.54.38:3001/SignUp',
+        url: 'http://10.0.0.151:3001/SignUp',
         headers: {'Content-Type': 'application/json'},
         data: {name: nome, email:email,password: senha, passwordConfirmation: passwordConfirmation}
       };

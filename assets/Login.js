@@ -7,21 +7,17 @@ const image = { uri: "https://i.pinimg.com/564x/38/9a/67/389a678a114f96c5b3d979a
 export default function Login(){
     const navigation = useNavigation();
     const [bloqueado, setBloqueado] = useState(true); 
-    const [user, setUser] = useState('');
+    const [usuario, setUser] = useState('');
     const [senha, setSenha] = useState('');
-    
-    function irParaHomeScreen(){
-        navigation.navigate('HomeScreen')
-    }
     function requestLogin()
     {
       var axios = require("axios").default;
 
       var options = {
         method: 'POST',
-        url: 'http://18.206.54.38:3001/login',
+        url: 'http://10.0.0.151:3001/login',
         headers: {'Content-Type': 'application/json'},
-        data: {name: user, password: senha}
+        data: {name: usuario, password: senha}
       };
       
       axios.request(options).then(function (response) {
@@ -32,7 +28,7 @@ export default function Login(){
           
         }
         else{
-          irParaHomeScreen();
+          navigation.navigate('Home', { usuario });
           console.log(response.data);
         }
         //console.log(response.data);
