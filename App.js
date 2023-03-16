@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './assets/HomeScreen';
 import Cadastro from './assets/Cadastro';
 import Login from './assets/Login';
-import AddPaciente from './assets/AddPaciente';
+import AddPaciente from './objetos/AddPaciente';
 import Home from './assets/HomeScreen';
 
 const Stack = createStackNavigator();
@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 export default function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName='AddPaciente'>
         <Stack.Screen name="Home" component={Home} options={{
           headerShown:false,}}/>
         <Stack.Screen name="Login" component={Login} options={{
@@ -23,8 +23,7 @@ export default function App(){
         <Stack.Screen name="Cadastro" component={Cadastro} options={{
           headerShown:false,}}/>
         <Stack.Screen name="AddPaciente" component={AddPaciente} options={{
-          title:'Adicionar Paciente'
-        }}/>  
+          headerShown:false,}}/>   
       </Stack.Navigator>
     </NavigationContainer>
   );
