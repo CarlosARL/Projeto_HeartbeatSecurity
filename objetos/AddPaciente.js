@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground,ScrollView, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
@@ -37,59 +37,58 @@ const AddPaciente = () => {
   };
 
   return (
-    <View style={styles.container}>
-      
-      <View style={styles.areacabecalho}>
+    <KeyboardAvoidingView style={{flex:1, marginBottom:50, backgroundColor:'#f8f9fa'}} behavior='padding'>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer} >
+        
         <ImageBackground source={image} resizeMode='cover' style={styles.imagebackground}>
           <View style={styles.pequenacaixadetexto}>
-            <Text style={{textAlign:'left', fontSize:14, marginTop:10, marginLeft:4}}>Para adicionar novos pacientes basta preencher corretamente o formulário abaixo.</Text>
+            <Text style={{textAlign:'left', fontSize:15, marginTop:10, marginLeft:4, color:'#001d3d'}}>Para adicionar novos pacientes basta preencher corretamente o formulário abaixo.</Text>
           </View>
-          <FlatList
-          data={pacientes}
-          keyExtractor={(paciente) => paciente._id}
-          renderItem={({ item }) => <PacienteItem paciente={item} />}
-          />
         </ImageBackground>
-        
-      </View>
-      
-      
-      <View style={styles.inputarea}>
-        <Text style={{ fontSize: 18, marginTop: 16 }}>Adicionar paciente:</Text>
+          
+        <Text style={{marginTop:10, fontSize:17, color:'#000'}}>Preencha a ficha médica:</Text>
         <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 8 }}
+          style={styles.caixadetexto}
           placeholder="Nome"
           value={nome}
           onChangeText={(text) => setNome(text)}
         />
         <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 16 }}
+          style={styles.caixadetexto}
           placeholder="Diagnóstico"
           value={diagnostico}
           onChangeText={(text) => setDiagnostico(text)}
         />
-        <Button title="Criar" onPress={handleCriarPaciente} />
-      </View>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+        <TextInput style={styles.caixadetexto}/>
+      </ScrollView>
+    </KeyboardAvoidingView>   
       
-    </View>
+      
+      
+    
   );
 };
 
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'blue'
-  },
-  areacabecalho:{
-    width:'100%',
-    height:'30%',
-    backgroundColor:'purple'
+  scrollViewContainer:{
+    alignItems:'center',
   },
   imagebackground:{
-    flexDirection:'row',
     width:'100%',
-    height:'100%',
+    height:200,
+    flexDirection:'row',
     alignItems:'center',
   },
   pequenacaixadetexto:{
@@ -99,12 +98,20 @@ const styles = StyleSheet.create({
     marginLeft:10,
     borderRadius:20,
   },
-  inputarea:{
-    height:300,
-    backgroundColor:'red',
-  }
+  caixadetexto:{
+    width:'90%',
+    height:40,
+    marginTop:10,
+    borderWidth:1,
+    padding:10,
+    borderRadius:5
+  },
+
+
 
 
 });
 
 export default AddPaciente;
+
+//<Button title="Criar" onPress={handleCriarPaciente} />
