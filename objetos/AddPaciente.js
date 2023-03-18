@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground,ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground,ScrollView, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import PacienteItem from './PacienteItem';
 
@@ -37,7 +37,7 @@ const AddPaciente = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={{flex:1, marginBottom:50, backgroundColor:'#f8f9fa'}} behavior='padding'>
+    <KeyboardAvoidingView style={{flex:1, backgroundColor:'#f8f9fa'}} behavior='padding'>
       <ScrollView contentContainerStyle={styles.scrollViewContainer} >
         
         <ImageBackground source={image} resizeMode='cover' style={styles.imagebackground}>
@@ -71,6 +71,15 @@ const AddPaciente = () => {
         <TextInput style={styles.caixadetexto}/>
         <TextInput style={styles.caixadetexto}/>
         <TextInput style={styles.caixadetexto}/>
+        <View style={styles.botoes}>
+          <TouchableOpacity title="Criar Ficha" onPress={handleCriarPaciente} style={styles.criar}>
+            <Text style={{fontSize:15, color:'#000'}}>Criar ficha</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.cancelar}>
+            <FontAwesome name="trash-o" size={20} color={'#f8f9fa'}/>
+          </TouchableOpacity>
+        </View>
+        
       </ScrollView>
     </KeyboardAvoidingView>   
       
@@ -106,12 +115,34 @@ const styles = StyleSheet.create({
     padding:10,
     borderRadius:5
   },
-
+  botoes:{
+    padding:15,
+    flexDirection:'row',
+    justifyContent:'space-evenly'
+  },
+  criar:{
+    margin:10,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:5,
+    width:'40%',
+    height:50,
+    backgroundColor:'#51ad72',
+    borderRadius:5,
+  },
+  cancelar:{
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:5,
+    width:'20%',
+    height:50,
+    backgroundColor:'#d00000',
+    borderRadius:5,
+  }
 
 
 
 });
-
 export default AddPaciente;
 
 //<Button title="Criar" onPress={handleCriarPaciente} />
