@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground} fr
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const image = { uri: "https://i.pinimg.com/564x/38/9a/67/389a678a114f96c5b3d979a798f56f79.jpg" };
+const image = { uri: "https://i.pinimg.com/564x/38/9a/67/1ND2sMeZSjfR3HCVP9RRGBuBLLxpphe9de.jpg" };
 export default function Login(){
     const navigation = useNavigation();
     const [bloqueado, setBloqueado] = useState(true); 
@@ -15,7 +15,7 @@ export default function Login(){
 
       var options = {
         method: 'POST',
-        url: 'http://10.0.0.151:3001/login',
+        url: 'http://18.206.54.38:3001/login',
         headers: {'Content-Type': 'application/json'},
         data: {name: usuario, password: senha}
       };
