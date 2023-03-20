@@ -5,7 +5,7 @@ export default function Pessoa({ nome }) {
   const [BPM, setBPM] = useState('');
   const [OX, setOX] = useState('');
   const io = require('socket.io-client');
-  const socket = io.connect('http://10.0.0.151:4000');
+  const socket = io.connect('http://18.206.54.38:4000');
   var flag1=0;
   if (flag1!=1){
     socket.on('connect', () => {
@@ -85,22 +85,11 @@ const Pessoa = () => {
 
   useEffect(() => {
     async function fetchPacientes() {
-      const response = await axios.get('http://10.0.0.151:3000/pacientes');
+      const response = await axios.get('http://18.206.54.38:3002/pacientes');
       setPacientes(response.data);
     }
     fetchPacientes();
   }, []);
-
-  const handleCriarPaciente = async () => {
-    const novoPaciente = {
-      nome,
-      diagnostico,
-    };
-    const response = await axios.post('http://10.0.0.151:3000/pacientes', novoPaciente);
-    setPacientes([...pacientes, response.data]);
-    setNome('');
-    setDiagnostico('');
-  };
 
   return (
     <View style={styles.container}>
@@ -110,20 +99,6 @@ const Pessoa = () => {
   keyExtractor={(paciente) => paciente._id}
   renderItem={({ item }) => <PacienteItem paciente={item} />}
 />
-      <Text style={styles.subtitulo}>Criar paciente</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        value={nome}
-        onChangeText={(text) => setNome(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Diagnóstico"
-        value={diagnostico}
-        onChangeText={(text) => setDiagnostico(text)}
-      />
-      <Button title="Criar" onPress={handleCriarPaciente} />
     </View>
   );
 };
@@ -132,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    
   },
   titulo: {
     fontSize: 24,
