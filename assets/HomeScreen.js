@@ -23,7 +23,7 @@ export default function Home({ route }) {
 */
 {
   axios
-    .get(`http://10.0.0.151:3001/name/${usuario}`)
+    .get(`http://18.206.54.38:3001/name/${usuario}`)
     .then(({ data }) => {
       setNome(data.nome);
     })
