@@ -19,7 +19,7 @@ const AddPaciente = () => {
 
   useEffect(() => {
     async function fetchPacientes() {
-      const response = await axios.get('http://10.0.0.151:3000/pacientes');
+      const response = await axios.get('http://18.206.54.38:3002/pacientes');
       setPacientes(response.data);
     }
     fetchPacientes();
@@ -30,7 +30,7 @@ const AddPaciente = () => {
       nome,
       diagnostico,
     };
-    const response = await axios.post('http://10.0.0.151:3000/pacientes', novoPaciente);
+    const response = await axios.post('http://18.206.54.38:3002/pacientes', novoPaciente);
     setPacientes([...pacientes, response.data]);
     setNome('');
     setDiagnostico('');
