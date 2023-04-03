@@ -10,9 +10,9 @@ export default function Home({ route }) {
   const [nome, setNome] = useState('');
   const navigation = useNavigation();
 
-  /*useEffect(() => {
+  useEffect(() => {
     axios
-      .get(`http://10.0.0.151:3001/name/${usuario}`)
+      .get(`http://44.203.2.145:3001/name/${usuario}`)
       .then(({ data }) => {
         setNome(data.nome);
       })
@@ -20,10 +20,10 @@ export default function Home({ route }) {
         console.error(error);
       });
   }, [usuario]);
-*/
+
 {
   axios
-    .get(`http://10.0.0.151:3001/name/${usuario}`)
+    .get(`http://44.203.2.145:3001/name/${usuario}`)
     .then(({ data }) => {
       setNome(data.nome);
     })

@@ -23,7 +23,7 @@ export default function Cadastro(){
 
       var options = {
         method: 'POST',
-        url: 'http://10.0.0.151:3001/SignUp',
+        url: 'http://44.203.2.145:3001/SignUp',
         headers: {'Content-Type': 'application/json'},
         data: {name: nome, email:email,password: senha, passwordConfirmation: passwordConfirmation}
       };
