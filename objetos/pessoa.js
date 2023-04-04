@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
       },
 })
 */
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -83,22 +82,31 @@ const Pessoa = () => {
   const [nome, setNome] = useState('');
   const [diagnostico, setDiagnostico] = useState('');
 
+  const fetchPacientes = async () => {
+    const response = await axios.get('http://44.203.2.145:3002/pacientes');
+    setPacientes(response.data);
+  };
+
   useEffect(() => {
-    async function fetchPacientes() {
-      const response = await axios.get('http://44.203.2.145:3002/pacientes');
-      setPacientes(response.data);
-    }
     fetchPacientes();
+    handleRefresh();
+    
   }, []);
+
+  const handleRefresh = () => {
+    fetchPacientes();
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Pacientes</Text>
       <FlatList 
-  data={pacientes}
-  keyExtractor={(paciente) => paciente._id}
-  renderItem={({ item }) => <PacienteItem paciente={item} />}
-/>
+        data={pacientes}
+        keyExtractor={(paciente) => paciente._id}
+        renderItem={({ item }) => <PacienteItem paciente={item} />}
+        onRefresh={handleRefresh}
+        refreshing={false}
+      />
     </View>
   );
 };

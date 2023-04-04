@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import io from 'socket.io-client';
+
+const socket = io('http://192.168.1.104:4000');
 
 const PacienteItem = ({ paciente }) => {
   const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
+  const [bpm, setBpm] = useState(null);
+  const [ox, setOx] = useState(null);
 
+  useEffect(() => {
+    socket.on('BPM', (data) => {
+      setBpm(data);
+    });
+    socket.on('OX', (data) => {
+      setOx(data);
+    });
+  }, []);
   return (
     <TouchableOpacity  onPress={() => setMostrarDetalhes(!mostrarDetalhes)}>
+      
       <View style={styles.container}>
         <Text style={{ fontWeight: 'bold' }}>{paciente.nome}</Text>
+        <Text style={{ fontWeight: 'bold' }}>BPM: {bpm}</Text>
+        <Text style={{ fontWeight: 'bold' }}>SpO2: {ox}</Text>
         {!mostrarDetalhes && (
           <Text style={{ fontStyle: 'italic' }}>{paciente.diagnostico}</Text>
-        )}
+        )}  
         {mostrarDetalhes && (
           <>
             <Text>Idade: {paciente.idade}</Text>
@@ -20,7 +36,7 @@ const PacienteItem = ({ paciente }) => {
             <Text>Diagnóstico: {paciente.diagnostico}</Text>
             <Text>Cuidados: {paciente.cuidados}</Text>
             <Text>medicamentos: {paciente.medicamentos}</Text>
-            <Text>historico medico: {paciente.historico_medico.descricao[0]}</Text>
+            <Text>historico medico: {paciente.historico_medico.descricao}</Text>
             
           </>
         )}

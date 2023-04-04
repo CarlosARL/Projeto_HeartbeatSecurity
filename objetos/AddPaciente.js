@@ -7,7 +7,8 @@ import PacienteItem from './PacienteItem';
 
 const image = { uri: "https://i.pinimg.com/564x/2d/f5/37/2df5378314d3da15c48075b126b03ac3.jpg" };
 
-const AddPaciente = () => {
+function AddPaciente({ route }) {
+  const { usuario } = route.params;
   const [pacientes, setPacientes] = useState([]);
   const [nome, setNome] = useState('');
   const [data_nascimento, setDataNascimento] = useState('');
@@ -25,11 +26,12 @@ const AddPaciente = () => {
   const [diagnostico, setDiagnostico] = useState('');
   const [cuidados, setCuidados] = useState([]);
   const [medicamentos, setmedicamentos] = useState([]);
-  const [descricao, setDescricao] = useState([]);
+  const [descricao, setDescricao] = useState('');
   const navigation = useNavigation();
-    function voltar(){
-        navigation.navigate('Home');
-    }
+  
+  function IrParaHome(){
+    navigation.navigate('Home', { usuario });
+  }
 
 
 
@@ -81,6 +83,7 @@ const AddPaciente = () => {
     } catch (error) {
     console.log('Error creating paciente:', error);
     }
+    IrParaHome();
     };
 
   return (
@@ -200,7 +203,7 @@ const AddPaciente = () => {
           <TouchableOpacity title="Criar Ficha" onPress={handleCriarPaciente} style={styles.criar}>
             <Text style={{fontSize:15, color:'#000'}}>Criar ficha</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cancelar}>
+          <TouchableOpacity style={styles.cancelar} onPress={IrParaHome}>
             <FontAwesome name="trash-o" size={20} color={'#f8f9fa'}/>
           </TouchableOpacity>
         </View>

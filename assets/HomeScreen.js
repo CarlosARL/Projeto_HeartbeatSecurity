@@ -20,21 +20,8 @@ export default function Home({ route }) {
         console.error(error);
       });
   }, [usuario]);
-
-{
-  axios
-    .get(`http://44.203.2.145:3001/name/${usuario}`)
-    .then(({ data }) => {
-      setNome(data.nome);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-  console.log(nome);
-
   function IrparaAddPaciente(){
-    navigation.navigate('AddPaciente');
+    navigation.navigate('AddPaciente',{ usuario });
   }
     
   return(
